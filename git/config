@@ -1,0 +1,24 @@
+
+[core]
+	pager = delta
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true
+	line-numbers = true
+	hunk-header-style = omit
+	file-style = bold
+	file-decoration-style = underline
+	syntax-theme = none
+	minus-style = normal
+	plus-style = bold
+	minus-emph-style = reverse
+	plus-emph-style = bold reverse
+	line-numbers-minus-style = "#5a5a5a"
+	line-numbers-plus-style = "#ffffff"
+	line-numbers-zero-style = "#303030"
+
+[merge]
+	conflictstyle = zdiff3

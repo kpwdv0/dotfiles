@@ -1,0 +1,116 @@
+;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+
+;; ==========================================
+;; 1. THEME & MONOCHROME UI
+;; ==========================================
+(setq doom-theme 'doom-tomorrow-night)
+
+(setq doom-localleader-key ",")
+(after! doom-themes
+  (custom-set-faces!
+    ;; Main Background and Text
+    '(default :foreground "white" :background "black")
+    '(fringe :background "black")
+    
+    ;; UI Elements
+    '(mode-line :foreground "white" :background "black" :box nil)
+    '(mode-line-inactive :foreground "gray" :background "black" :box nil)
+    '(vertical-border :foreground "gray30")
+    '(line-number :foreground "gray30")
+    '(line-number-current-line :foreground "white")
+    '(header-line :foreground "white" :background "black" :box nil)
+    
+    ;; Syntax Highlighting (Monochrome)
+    '(font-lock-keyword-face :foreground "white" :weight bold)
+    '(font-lock-function-name-face :foreground "white")
+    '(font-lock-variable-name-face :foreground "white")
+    '(font-lock-type-face :foreground "white")
+    '(font-lock-constant-face :foreground "light gray")
+    '(font-lock-string-face :foreground "gray")
+    '(font-lock-builtin-face :foreground "white")
+    '(font-lock-comment-face :foreground "gray")
+    
+    ;; Org-mode Elements
+    '(org-level-1 :foreground "white" :weight bold)
+    '(org-level-2 :foreground "white")
+    '(org-link :foreground "white" :underline t)
+    '(org-todo :foreground "white" :weight bold)
+    '(org-done :foreground "gray")
+    '(org-headline-done :foreground "gray")
+    
+    ;; Modeline Bar
+    '(doom-modeline-bar :background "white")))
+
+;; ==========================================
+;; 2. ORG-MODE & LATEX RENDERING
+;; ==========================================
+(setq org-roam-directory "~/org/roam")
+
+(after! org
+  (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
+  (setq org-format-latex-options (plist-put org-format-latex-options :foreground "white"))
+  (setq org-format-latex-options (plist-put org-format-latex-options :background "Transparent"))
+
+  ;; dvisvgm renders fragments as SVG — crisp at any zoom, vs bitmapped dvipng
+  (setq org-preview-latex-default-process 'dvisvgm)
+
+  ;; Render all fragments the moment an org buffer opens
+  (setq org-startup-with-latex-preview t)
+
+  ;; Standard math packages, loaded into every preview and export
+  (add-to-list 'org-latex-packages-alist '("" "amsmath" t))
+  (add-to-list 'org-latex-packages-alist '("" "amssymb" t))
+  (add-to-list 'org-latex-packages-alist '("" "mathtools" t))
+  (add-to-list 'org-latex-packages-alist '("" "physics" t))
+
+  ;; Auto-toggle preview when the cursor enters/leaves a fragment
+  (add-hook 'org-mode-hook #'org-fragtog-mode))
+
+
+;; LaTeX specific settings
+(setq +latex-viewers '(pdf-tools zathura))
+
+(after! latex
+  (setq TeX-save-query nil
+        TeX-show-compilation t))
+
+;; ==========================================
+;; 3. ORG-ROAM & UI (GRAPH)
+;; ==========================================
+(after! org-roam
+  (setq org-roam-directory (file-truename "~/org/roam")
+        org-roam-completion-everywhere t)
+  (org-roam-db-autosync-mode))
+  (setq org-roam-capture-templates
+        '(
+          ("m" "math note" plain
+           (file "~/org/roam/math/${slug}.org")
+           "#+title: ${title}\n\n%?")
+
+          ("c" "cs note" plain
+           (file "~/org/roam/cs/${slug}.org")
+           "#+title: ${title}\n\n%?")
+
+          ("p" "foodcycle note" plain
+           (file "~/org/roam/foodcyclenotes/${slug}.org")
+           "#+title: ${title}\n\n%?")
+
+          ("e" "english note" plain
+           (file "~/org/roam/english/${slug}.org")
+           "#+title: ${title}\n\n%?")
+
+          ("z" "chinese note" plain
+           (file "~/org/roam/chinese/${slug}.org")
+           "#+title: ${title}\n\n%?")
+
+          ("d" "default note" plain
+           (file "~/org/roam/other/${slug}.org")
+           "#+title: ${title}\n\n%?"))))
+
+(use-package! org-roam-ui
+  :after org-roam
+  :config
+  (setq org-roam-ui-sync-theme t
+        org-roam-ui-follow t
+        org-roam-ui-update-on-save t
+        org-roam-ui-open-on-start t))

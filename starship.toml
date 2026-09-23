@@ -1,0 +1,40 @@
+add_newline = false
+format = "$directory$git_branch$git_status$character"
+
+right_format = "$cmd_duration"
+
+[directory]
+style = "bright-white bold"
+truncation_length = 3
+truncation_symbol = ".../"
+read_only = " ro"
+read_only_style = "white"
+
+[git_branch]
+symbol = ""
+format = "[ $branch]($style)"
+style = "white"
+
+[git_status]
+format = "[$all_status$ahead_behind]($style)"
+style = "bright-black"
+conflicted = " !"
+ahead = " ^${count}"
+behind = " v${count}"
+diverged = " ^v"
+untracked = " ?"
+stashed = " *"
+modified = " ~"
+staged = " +"
+renamed = " >"
+deleted = " -"
+
+[cmd_duration]
+min_time = 2000
+format = "[$duration]($style)"
+style = "bright-black"
+
+[character]
+success_symbol = "[ >](bright-white)"
+error_symbol = "[ !](bright-white bold)"
+vimcmd_symbol = "[ <](bright-white)"

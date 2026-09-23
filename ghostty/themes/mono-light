@@ -1,0 +1,25 @@
+# mono - light. Same idea inverted: red maps to pure black so errors
+# are the darkest thing on the page.
+background = #ffffff
+foreground = #000000
+cursor-color = #000000
+cursor-text = #ffffff
+selection-background = #dcdcdc
+selection-foreground = #000000
+
+palette = 0=#000000
+palette = 1=#000000
+palette = 2=#4a4a4a
+palette = 3=#6a6a6a
+palette = 4=#8a8a8a
+palette = 5=#3a3a3a
+palette = 6=#5a5a5a
+palette = 7=#2a2a2a
+palette = 8=#9a9a9a
+palette = 9=#000000
+palette = 10=#3a3a3a
+palette = 11=#5a5a5a
+palette = 12=#7a7a7a
+palette = 13=#2a2a2a
+palette = 14=#4a4a4a
+palette = 15=#000000

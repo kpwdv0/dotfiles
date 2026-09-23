@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# ---- BAR ----
+sketchybar --bar \
+  position=top \
+  height=30 \
+  color=0xff000000 \
+  padding_left=10 \
+  padding_right=10 \
+  shadow=off \
+  border_width=0
+
+# ---- GLOBAL COLOR (e-ink gray) ----
+FG=0xffd6d6d6
+
+# ---- CLOCK (CENTER) ----
+sketchybar --add item clock center \
+  --set clock \
+  update_freq=1 \
+  label.color=$FG \
+  script="echo \$(date '+%H:%M:%S')"

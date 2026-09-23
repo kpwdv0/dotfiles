@@ -1,0 +1,60 @@
+# Allowlist: ignore everything, then let specific things back in.
+# Safer than blocklisting, because a new app dropping state in ~/.config
+# can never accidentally get committed.
+*
+!.gitignore
+!README.md
+!Brewfile
+
+# --- editors ---
+!doom/
+!doom/**
+!nvim/
+!nvim/**
+
+# --- terminal / shell ---
+!ghostty/
+!ghostty/**
+!kitty/
+!kitty/**
+!shell/
+!shell/**
+!starship.toml
+
+# --- window management ---
+!yabai/
+!yabai/**
+!skhd/
+!skhd/**
+!sketchybar/
+!sketchybar/**
+!borders/
+!borders/**
+
+# --- tools ---
+!btop/
+!btop/**
+!cava/
+!cava/**
+!fastfetch/
+!fastfetch/**
+!yazi/
+!yazi/**
+!git/
+!git/**
+
+# --- now claw back what should never be committed ---
+# the Doom framework itself is a 367M git clone, not config
+emacs/
+# credentials
+atuin/
+spotify-player/
+gh/
+raycast/
+# noise
+**/.DS_Store
+**/*.bak*
+**/*.elc
+**/.git/
+doom/.local/
+nvim/lazy-lock.json.bak.*

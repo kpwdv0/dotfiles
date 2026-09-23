@@ -1,0 +1,26 @@
+# mono - dark. No hue anywhere. Where colour used to carry meaning,
+# brightness does instead: red maps to the brightest value so failures
+# still catch your eye against a field of grey.
+background = #000000
+foreground = #ffffff
+cursor-color = #ffffff
+cursor-text = #000000
+selection-background = #303030
+selection-foreground = #ffffff
+
+palette = 0=#000000
+palette = 1=#ffffff
+palette = 2=#c8c8c8
+palette = 3=#a8a8a8
+palette = 4=#888888
+palette = 5=#d8d8d8
+palette = 6=#b8b8b8
+palette = 7=#e0e0e0
+palette = 8=#5a5a5a
+palette = 9=#ffffff
+palette = 10=#e8e8e8
+palette = 11=#c8c8c8
+palette = 12=#a0a0a0
+palette = 13=#f0f0f0
+palette = 14=#d8d8d8
+palette = 15=#ffffff

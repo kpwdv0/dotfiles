@@ -1,0 +1,24 @@
+# monopink — light. Same system, inverted, accents darkened for contrast.
+background = #ffffff
+foreground = #000000
+cursor-color = #c74e84
+cursor-text = #ffffff
+selection-background = #ededed
+selection-foreground = #000000
+
+palette = 0=#000000
+palette = 1=#c74e84
+palette = 2=#3d8b4f
+palette = 3=#6e6e6e
+palette = 4=#9a9a9a
+palette = 5=#c74e84
+palette = 6=#3d8b4f
+palette = 7=#4a4a4a
+palette = 8=#9a9a9a
+palette = 9=#a83a6c
+palette = 10=#2f6e3d
+palette = 11=#5a5a5a
+palette = 12=#b4b4b4
+palette = 13=#a83a6c
+palette = 14=#2f6e3d
+palette = 15=#000000

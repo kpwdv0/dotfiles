@@ -1,0 +1,9 @@
+[manager]
+cwd = { fg = "white" }
+
+[filetype]
+rules = [
+  { mime = "inode/directory", fg = "white" },
+  { name = "*", fg = "white" },
+]
+

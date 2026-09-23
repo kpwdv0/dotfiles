@@ -1,0 +1,93 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+  "logo": {
+    "source": "~/.config/fastfetch/logo.txt",
+    "padding": {
+      "top": 1,
+      "right": 2
+    },
+    "type": "auto",
+    "color": {
+      "1": "white"
+    }
+  },
+  "display": {
+    "separator": "  "
+  },
+  "modules": [
+    {
+      "type": "title",
+      "format": "kira w <3"
+    },
+    {
+      "type": "custom",
+      "format": "──────────────"
+    },
+    {
+      "type": "custom",
+      "format": "student | cs + math | piano"
+    },
+    {
+      "type": "custom",
+      "key": "status:",
+      "format": "locked in! (not really)"
+    },
+    {
+      "type": "media",
+      "key": "media:"
+    },
+    {
+      "type": "command",
+      "text": "cat ~/.streak",
+      "key": "streak:"
+    },
+    "break",
+    {
+      "type": "custom",
+      "format": "system"
+    },
+    {
+      "type": "os",
+      "key": "os:"
+    },
+    {
+      "type": "shell",
+      "key": "sh:"
+    },
+    {
+      "type": "custom",
+      "format": "nvim > vscode",
+      "key": "editor:"
+    },
+    {
+      "type": "uptime",
+      "key": "uptime:"
+    },
+    {
+      "type": "packages",
+      "key": "packages:"
+    },
+    "break",
+    {
+      "type": "cpu",
+      "key": "cpu:"
+    },
+    {
+      "type": "memory",
+      "key": "mem:"
+    },
+    {
+      "type": "disk",
+      "key": "disk:"
+    },
+    {
+      "type": "battery",
+      "key": "battery:"
+    },
+    {
+      "type": "command",
+      "text": "%H:%M'",
+      "key": "time: "
+    }
+  ]
+}

@@ -1,0 +1,145 @@
+#  zsh-syntax-highlighting MUST be dead last or it swallows the widgets
+
+export PATH="$HOME/.local/bin:$HOME/.config/emacs/bin:$PATH"
+
+export EDITOR=nvim
+export VISUAL=nvim
+
+export CLICOLOR=0
+unset LS_COLORS
+unset LSCOLORS
+export BAT_THEME="ansi"
+
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=50000
+SAVEHIST=50000
+setopt append_history share_history inc_append_history
+setopt hist_ignore_all_dups hist_ignore_space hist_reduce_blanks hist_verify
+
+autoload -Uz compinit
+if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
+  compinit
+else
+  compinit -C
+fi
+
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+
+eval "$(starship init zsh)"
+
+eval "$(fzf --zsh)"
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .git'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND='fd --type d --hidden --exclude .git'
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border=none --color=bw'
+
+eval "$(atuin init zsh --disable-up-arrow)"
+bindkey '^r' atuin-search   # fzf grabs ^R first; atuin takes it back
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/shims:$PATH"
+pyenv() {
+  unset -f pyenv
+  eval "$(command pyenv init -)"
+  eval "$(command pyenv virtualenv-init -)" 2>/dev/null
+  pyenv "$@"
+}
+
+# doing nothing). pyenv stays for now because ~/cs2025 pins a python version
+eval "$(mise activate zsh)"
+
+export PYENV_ROOT="$HOME/.pyenv"
+pyenv() {
+  unset -f pyenv
+  eval "$(command pyenv init -)"
+  eval "$(command pyenv virtualenv-init -)" 2>/dev/null
+  pyenv "$@"
+}
+
+alias ls="eza -la --icons --color=never"
+alias cat="bat --style=plain"
+alias cd="z"
+alias vim="nvim"
+alias v="nvim"
+alias sp="spotify_player"
+alias fastfetch="fastfetch --color white"
+alias lg="lazygit"
+
+e() {
+  local t="$TERM"
+  infocmp "$t" >/dev/null 2>&1 || t="xterm-256color"
+  TERM="$t" emacsclient -t -a ''
+}
+
+_task() {
+  local kind="$1"; shift
+  if [ $# -eq 0 ]; then
+    print -u2 "usage: ${kind:-todo} <what to do> [@date]"
+    return 1
+  fi
+  local all="$*" text date cand
+  # a trailing @token is a date only if it looks like one, otherwise
+  # "email a@b.com about it" silently loses everything after the @
+  text="$all"; date=""
+  if [[ "$all" =~ '^(.*[^[:space:]])[[:space:]]+@([^[:space:]]+)$' ]]; then
+    cand="${match[2]:l}"
+    case "$cand" in
+      [+-]<->|<->|<->-<->-<->|today|tomorrow|tmr|yesterday|nextweek) ;&
+      (mon|tue|wed|thu|fri|sat|sun)*|(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)*)
+        text="${match[1]}"; date="${match[2]}" ;;
+    esac
+  fi
+  if [ "$kind" = due ] && [ -z "$date" ]; then
+    print -u2 "due needs a date:  due <what> @fri"
+    return 1
+  fi
+  text="${text//\"/\\\"}"; date="${date//\"/\\\"}"
+  local res
+  res=$(emacsclient -e "(k/task \"$text\" $( [ -n "$date" ] && echo "\"$date\"" || echo nil ) $( [ "$kind" = due ] && echo "'deadline" || echo nil ))" 2>/dev/null)
+  if [[ "$res" == *"void"* ]]; then
+    print -u2 "stale shell - run: source ~/.zshrc"
+    return 1
+  elif [ -z "$res" ] || [[ "$res" == *ERROR* ]]; then
+    print -u2 "emacs: ${res:-no daemon}"
+    return 1
+  fi
+  print -- "-> ${${res//\"/}}"
+}
+todo() { _task todo "$@" }
+due()  { _task due  "$@" }
+
+agenda() {
+  local t="$TERM"
+  infocmp "$t" >/dev/null 2>&1 || t="xterm-256color"
+  emacsclient -e '(k/agenda-arm)' >/dev/null 2>&1
+  TERM="$t" emacsclient -t -a ''
+}
+
+# ---------- autosuggestions (before syntax-highlighting) --------------
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+bindkey '^f' vi-forward-word
+
+eval "$(navi widget zsh)" 
+
+eval "$(direnv hook zsh)"
+
+# heuristic, and it is wrong here: zsh-syntax-highlighting MUST come
+export _ZO_DOCTOR=0
+eval "$(zoxide init zsh)"
+
+# syntax-highlighting must stay last
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+typeset -gA ZSH_HIGHLIGHT_STYLES
+ZSH_HIGHLIGHT_STYLES[command]='bold'
+ZSH_HIGHLIGHT_STYLES[builtin]='bold'
+ZSH_HIGHLIGHT_STYLES[function]='bold'
+ZSH_HIGHLIGHT_STYLES[alias]='bold'
+ZSH_HIGHLIGHT_STYLES[precommand]='bold'
+ZSH_HIGHLIGHT_STYLES[path]='underline'
+ZSH_HIGHLIGHT_STYLES[unknown-token]='underline'
+ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='none'
+ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='none'
+ZSH_HIGHLIGHT_STYLES[comment]='fg=8'
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

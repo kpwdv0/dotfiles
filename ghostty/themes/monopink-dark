@@ -1,0 +1,24 @@
+# monopink — dark. Monochrome with pink + green accents.
+background = #000000
+foreground = #ffffff
+cursor-color = #f4b8d0
+cursor-text = #000000
+selection-background = #262626
+selection-foreground = #ffffff
+
+palette = 0=#000000
+palette = 1=#f4b8d0
+palette = 2=#b5e8bc
+palette = 3=#c8c8c8
+palette = 4=#9a9a9a
+palette = 5=#f4b8d0
+palette = 6=#b5e8bc
+palette = 7=#e0e0e0
+palette = 8=#5a5a5a
+palette = 9=#ffd0e2
+palette = 10=#cff5d4
+palette = 11=#e8e8e8
+palette = 12=#b4b4b4
+palette = 13=#ffd0e2
+palette = 14=#cff5d4
+palette = 15=#ffffff
